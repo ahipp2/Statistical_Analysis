@@ -1,0 +1,29 @@
+R version 4.0.5 (2021-03-31) -- "Shake and Throw"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+
+
+> install.packages('tidyverse')
+> library(tidyverse)
+
+
+> parsis.eigenval <- read_table2(file.choose(), col_names=F)
+> eigenvec <- read_table2(file.choose())
+
+> View(eigenvec)
+
+> eigenvec <- eigenvec[,-1]
+> names(eigenvec)[1] <- 'ind'
+> names(eigenvec)[2:ncol(eigenvec)] <- paste0("PC", 1:(ncol(eigenvec)-1))
+
+> pca <- as_tibble(data.frame(eigenvec))
+
+> pve <- data.frame(PC=1:20, pve = parsis.eigenval/sum(parsis.eigenval)*100)
+> pve <- round(pve, 2)
+> pve[,3] <- paste(pve[,1] , "(", paste(as.character(pve[,2]), "%",")") )
+> pve[,3] <- paste("PC:", as.character(pve[,3]))
+
+> pca.plot <- pca.plot + xlab(percentage$V4[1]) + ylab(percentage$V4[2])
+
+
